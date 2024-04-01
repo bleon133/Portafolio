@@ -1,0 +1,159 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+html,body{
+    height: 100%;
+    width: 100%;
+    color: var(--color-7);
+}
+  
+:root{
+    --color-1: #06141B;
+    --color-2: #11212D;
+    --color-3: #253745;
+    --color-4: #3A5C6A;
+    --color-5: #9BA8AB;
+    --color-6: #CCD0CF;
+    --color-7: #fff;
+}
+
+a{
+    color: var(--color-7);
+    text-decoration: none;
+}
+
+h1{
+    font-size: 45px;
+}
+
+h2{
+    font-size: 40px;
+}
+
+#aboutMe{
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-3);
+}
+
+nav{
+    height: 8%;
+    width: 100%;
+    background-color: var(--color-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5%;
+}
+
+nav div:nth-child(1){
+    display: flex;
+    flex-direction: column;
+}
+
+nav div:nth-child(1) a{
+    font-size: 24px;
+}
+
+nav div:nth-child(1) span{
+    font-size: 14px;
+}
+
+nav div:nth-child(2){
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+nav div:nth-child(2) a{
+    font-size: 16px;
+}
+
+nav div:nth-child(2) .btnContact{
+    height: 46px;
+    width: 124px;
+    border-radius: 16px;
+    background-color: var(--color-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav div:nth-child(2) select{
+    background-color: transparent;
+    color: var(--color-7);
+    border: none;
+}
+
+main{
+    height: 92%;
+    width: 100%;
+    padding-inline: 8%;
+    display: flex;
+    justify-content: space-between;
+}
+
+main div{
+    height: 100%;
+    width: 45%;
+}
+
+main div:nth-child(1){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+main div:nth-child(1) span{
+    font-size: 30px;
+}
+
+main div:nth-child(1) p{
+    font-size: 25px;
+}
+
+main div:nth-child(2){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circleExt{
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    background-color: var(--color-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circleInt{
+    height: 320px;
+    width: 320px;
+    border-radius: 50%;
+    background-color: var(--color-6);
+}
+
+#skills{
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-2);
+}
+
+#projects{
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-3);
+}
+
+#contactMe{
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-3);
+}
