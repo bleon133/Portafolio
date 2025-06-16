@@ -121,6 +121,95 @@
         .project-card:hover .overlay {
             opacity: 1;
         }
+
+        /* overlay oculto, detrás de la tarjeta y sin capturar clicks */
+        .project-card .overlay {
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* al hacer hover, sube encima y se activan los eventos */
+        .project-card:hover .overlay {
+            z-index: 2;
+            pointer-events: auto;
+        }
+
+
+        .timeline {
+            position: relative;
+            padding: 0;
+        }
+
+        /* Línea vertical: empieza justo debajo del título */
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 3.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: calc(100% - 3.5rem);
+            background: var(--color-secondary);
+        }
+
+        /* Marcador circular */
+        .marker {
+            width: 16px;
+            height: 16px;
+            display: block;
+            margin-top: 0.25rem;
+            z-index: 2;
+        }
+
+        /* Ajusta los li para que no colisionen con la línea */
+        .timeline li {
+            position: relative;
+        }
+
+        /* Columna central transparente para dejar hueco */
+        .timeline li>.col-md-2 {
+            pointer-events: none;
+        }
+
+        /* RESPONSIVE: stacking en pantallas pequeñas */
+        @media (max-width: 767px) {
+
+            /* La línea vertical se mueve a la izquierda */
+            .timeline:before {
+                left: 1.5rem;
+                transform: none;
+                height: calc(100% - 3.5rem);
+            }
+
+            /* Cada item apila su contenido en una sola columna */
+            .timeline li {
+                display: block;
+                padding-left: 3rem;
+                /* espacio para la línea y el marcador */
+                margin-bottom: 3rem;
+            }
+
+            /* Ocultamos el grid/row de Bootstrap y usamos block */
+            .timeline li .row {
+                display: block;
+            }
+
+            /* El puesto y la fecha quedan arriba */
+            .timeline li .col-md-5,
+            .timeline li .col-md-2,
+            .timeline li .col-md-5.ps-4 {
+                width: 100% !important;
+                text-align: left !important;
+                padding: 0 !important;
+            }
+
+            /* Reposicionamos el círculo marcador */
+            .timeline li .marker {
+                position: absolute;
+                top: 0;
+                left: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -173,13 +262,38 @@
     <section id="about" data-aos="fade-right">
         <div class="container">
             <h2 class="fw-semibold text-center mb-4" data-i18n-key="about_title">Sobre mí</h2>
-            <p data-i18n-key="about_p1">Desde niño me fascinaban los videojuegos, lo que me llevó a estudiar Tecnólogo
-                en Desarrollo de Videojuegos e Ingeniería de Sistemas. He combinado mis estudios con dos años de
-                experiencia en Devs Technology, donde desarrollé aplicaciones backend y multiplataforma.</p>
-            <p data-i18n-key="about_p2">Finalista en el UNAB GameDev GameJam, descubrí que la innovación y la diversión
-                pueden ir de la mano en la programación.</p>
-            <p><em data-i18n-key="about_funfact_label">Dato curioso:</em> <span data-i18n-key="about_funfact">Cuando no
-                    programo, me gusta construir prototipos con Arduino o explorar videojuegos indie.</span></p>
+            <p>
+                👋 ¡Hola! Soy estudiante de 6.º semestre de Ingeniería de Sistemas en la UNAB y tecnólogo en Desarrollo
+                de Videojuegos
+                e Entornos Interactivos del SENA. Me apasiona la programación y la creación de experiencias digitales.
+            </p>
+            <!-- Línea opcional sobre Biomédica y robótica -->
+            <p>
+                🔬 También cursé hasta 7.º semestre Ingeniería Biomédica en la UNAB, y aunque hace año y medio lo pausé,
+                mi pasión
+                por la robótica y los sistemas embebidos me ha aportado valiosos conocimientos.
+            </p>
+            <p>
+                🚀 En mis 2 años en <strong>Devs Technology</strong> he trabajado en:
+            </p>
+            <ul>
+                <li>🌐 <strong>Web:</strong> APIs REST con Spring Boot, MongoDB y MVC; frontend con Bootstrap y PHP/SQL.
+                </li>
+                <li>📱 <strong>Móvil:</strong> Apps multiplataforma con Kotlin Multiplatform y sincronización
+                    offline/online.</li>
+            </ul>
+            <p>
+                🎮 Participé en la <strong>Global Game Jam</strong> (Bucaramanga) en 2024 y 2025, desarrollando
+                prototipos interactivos
+                en equipo y reforzando mi pasión por el game dev.
+            </p>
+            <p>
+                📈 Me considero un aprendiz constante y un buen líder: disfruto coordinar tareas, presentar demos de
+                producto y
+                colaborar con clientes. Mi objetivo es seguir creciendo en tecnologías web, móvil y robótica, aportando
+                siempre
+                soluciones creativas y eficientes.
+            </p>
         </div>
     </section>
 
@@ -335,46 +449,70 @@
             </div>
 
             <div class="row g-4 justify-content-center" id="project-list">
-                <!-- Tarjeta Web -->
+                <!-- BGApp Web -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="web" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="100">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
-                        <img src="/assets/proyecto-web.png" class="card-img-top" alt="E-commerce App">
-                        <!-- Siempre visible -->
-                        <div class="card-body text-center bg-body-secondary">
-                            <h5 class="card-title text-white">E-commerce App</h5>
-                            <p class="mb-2"><span class="badge bg-primary">Spring Boot</span> <span
-                                    class="badge bg-info">Thymeleaf</span></p>
-                        </div>
-                        <!-- Aparece al hover -->
-                        <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center px-3"
-                            style="background: rgba(0,0,0,0.7); opacity: 0; transition: opacity .3s;">
-                            <p class="text-white mb-3">Panel admin, JWT y despliegue AWS.</p>
-                            <a href="#" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
-                                data-bs-target="#modalWeb">Detalles</a>
-                            <a href="https://demo-web.live" target="_blank"
-                                class="btn btn-sm btn-outline-light">Demo</a>
+                        <img src="img/Bgapp.png" class="card-img-top" alt="BGApp Web">
+
+                        <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
+                            <div>
+                                <h5 class="card-title text-white">BGApp Web</h5>
+                                <!-- Badges de tecnologías -->
+                                <p class="mb-2">
+                                    <span class="badge bg-primary">Spring Boot</span>
+                                    <span class="badge bg-info">Bootstrap</span>
+                                </p>
+                                <!-- Descripción -->
+                                <p class="small text-white mb-3">
+                                    Portal web de turismo en Bucaramanga con rutas, mapas interactivos y reservas.
+                                </p>
+                            </div>
+
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
+                                    data-bs-target="#modalBgWeb">
+                                    Detalles
+                                </a>
+                                <a href="http://52.191.2.203:8080/" target="_blank"
+                                    class="btn btn-sm btn-outline-light">
+                                    Demo
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tarjeta Móvil -->
+                <!-- BGApp Móvil -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="mobile" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="200">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
-                        <img src="/assets/app-tareas.png" class="card-img-top" alt="App de Tareas">
-                        <div class="card-body text-center bg-body-secondary">
-                            <h5 class="card-title text-white">App de Tareas</h5>
-                            <p class="mb-2"><span class="badge bg-success">Jetpack Compose</span> <span
-                                    class="badge bg-secondary">Firebase</span></p>
-                        </div>
-                        <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center px-3"
-                            style="background: rgba(0,0,0,0.7); opacity: 0; transition: opacity .3s;">
-                            <p class="text-white mb-3">Offline/online sync con Firebase.</p>
-                            <a href="#" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
-                                data-bs-target="#modalMobile">Detalles</a>
-                            <a href="https://demo-taskapp.live" target="_blank"
-                                class="btn btn-sm btn-outline-light">Demo</a>
+                        <img src="img/Bgapp.png" class="card-img-top" alt="BGApp Móvil">
+
+                        <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
+                            <div>
+                                <h5 class="card-title text-white">BGApp Móvil</h5>
+                                <!-- Badges de tecnologías -->
+                                <p class="mb-2">
+                                    <span class="badge bg-success">Kotlin</span>
+                                    <span class="badge bg-secondary">MongoDB</span>
+                                </p>
+                                <!-- Descripción -->
+                                <p class="small text-white mb-3">
+                                    App móvil offline/online con guías turísticas, geolocalización y notificaciones.
+                                </p>
+                            </div>
+
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
+                                    data-bs-target="#modalBgMobile">
+                                    Detalles
+                                </a>
+                                <a href="https://demo-bgapp-mobile.live" target="_blank"
+                                    class="btn btn-sm btn-outline-light">
+                                    Demo
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -480,14 +618,42 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" data-aos="fade-up">
+    <section id="experience" class="py-5" data-aos="fade-up">
         <div class="container">
-            <h2 class="fw-semibold text-center mb-4" data-i18n-key="experience_title">Experiencia</h2>
-            <div class="timeline">
-                <!-- Mantén tu timeline -->
-            </div>
+            <h2 class="fw-semibold text-center mb-5" data-i18n-key="experience_title">
+                Experiencia
+            </h2>
+            <ul class="timeline list-unstyled position-relative mx-auto" style="max-width:800px;">
+                <!-- Item: Devs Technology -->
+                <li class="row gy-5 align-items-center mb-5">
+                    <div class="col-md-5 text-end pe-4">
+                        <h5 class="mb-1">Full Stack Developer</h5>
+                        <small class="text-secondary">Junio 2023 — Presente</small>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <span class="marker bg-primary rounded-circle"></span>
+                    </div>
+                    <div class="col-md-5 ps-4">
+                        <h5 class="mb-2">Devs Technology</h5>
+                        <p class="small mb-2">
+                            Desarrollo de aplicaciones web y móviles, mantenimiento de APIs y presentaciones a clientes.
+                        </p>
+                        <ul class="small ps-3">
+                            <li>API REST con Spring Boot, MongoDB y MVC.</li>
+                            <li>Aplicativos multiplataforma en Kotlin Multiplatform.</li>
+                            <li>Frontend con Bootstrap y PHP/SQL.</li>
+                            <li>Reuniones y demos de producto con clientes.</li>
+                        </ul>
+                        <a href="https://d3vs.tech/" target="_blank" class="small text-primary text-decoration-none">
+                            Ver sitio de Devs Technology <i class="fas fa-external-link-alt fs-6"></i>
+                        </a>
+                    </div>
+                </li>
+                <!-- Añade más <li> idénticos para otras experiencias -->
+            </ul>
         </div>
     </section>
+
 
     <!-- Contact Section -->
     <section id="contact" class="py-5" style="background: var(--color-surface);">
@@ -520,10 +686,11 @@
         <div class="container text-center">
             <!-- Redes Sociales -->
             <div class="mb-3">
-                <a href="#" class="me-3 fs-4 text-light"><i class="fab fa-github"></i></a>
-                <a href="#" class="me-3 fs-4 text-light"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="me-3 fs-4 text-light"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="fs-4 text-light"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/bleon133" class="me-3 fs-4 text-light"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/brayan-steven-le%C3%B3n-martinez-a7528416b"
+                    class="me-3 fs-4 text-light"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/stephen_leon08/" class="fs-4 text-light"><i
+                        class="fab fa-instagram"></i></a>
             </div>
             <!-- Información de contacto -->
             <div class="small mb-2">
