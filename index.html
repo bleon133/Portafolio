@@ -17,6 +17,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+
     <style>
         :root {
             --color-bg: #121212;
@@ -210,6 +211,111 @@
                 left: 1rem;
             }
         }
+
+        /* Modificado para centrar el modal en toda la pantalla */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            z-index: 1050;
+        }
+
+        .modal.is-open {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal__overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal__container {
+            background: var(--color-surface);
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            position: relative;
+        }
+
+        .modal.is-open .modal__container {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal__header,
+        .modal__footer {
+            margin-bottom: 1rem;
+        }
+
+        .modal__close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            color: var(--text-light);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutDown {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+        }
+
+        .modal__container {
+            animation: fadeInUp 0.3s forwards;
+        }
+
+        .modal.is-closing .modal__container {
+            animation: fadeOutDown 0.3s forwards;
+        }
+
+        /* Hover lift effect para las tarjetas de skills */
+        .skill-card {
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 
@@ -297,107 +403,140 @@
         </div>
     </section>
 
-    <!-- Skills Section Mejorada -->
+    <!-- Sección de Habilidades (grid con descripciones y animaciones) -->
     <section id="skills" data-aos="fade-up">
         <div class="container">
-            <h2 class="fw-semibold text-center mb-5" data-i18n-key="skills_title">Habilidades</h2>
+            <h2 class="fw-semibold text-center mb-5">Habilidades</h2>
             <div class="row g-4">
-                <!-- Backend & Databases -->
-                <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
-                    <div class="card shadow-sm p-4 bg-body-secondary">
-                        <h5 class="card-title mb-3"><i class="fas fa-server me-2"></i>Backend & Bases de Datos</h5>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Spring Boot</span><span>90%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="90%"></div>
-                            </div>
+                <!-- Backend & Bases de Datos -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card skill-card shadow-sm p-4 bg-body-secondary">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-server fa-2x me-3 text-primary"></i>
+                            <h5 class="mb-0">Backend & Bases de Datos</h5>
                         </div>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>MongoDB</span><span>85%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="85%"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Oracle DB</span><span>75%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="75%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="d-flex justify-content-between"><span>Java</span><span>88%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="88%"></div>
-                            </div>
-                        </div>
+                        <ul class="list-unstyled">
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="150">
+                                <i class="devicon-spring-plain colored me-2"></i>
+                                <div>
+                                    <strong>Spring Boot</strong><br>
+                                    Diseño de APIs REST escalables con inyección de dependencias y Spring Security.
+                                </div>
+                            </li>
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="200">
+                                <i class="devicon-mongodb-plain colored me-2"></i>
+                                <div>
+                                    <strong>MongoDB</strong><br>
+                                    Modelado flexible de datos y consultas agregadas para datos semi-estructurados.
+                                </div>
+                            </li>
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="250">
+                                <i class="devicon-oracle-original colored me-2"></i>
+                                <div>
+                                    <strong>Oracle DB</strong><br>
+                                    Administración de bases relacionales con PL/SQL y optimización de queries.
+                                </div>
+                            </li>
+                            <li class="d-flex" data-aos="fade-right" data-aos-delay="300">
+                                <i class="devicon-java-plain colored me-2"></i>
+                                <div>
+                                    <strong>Java SE/EE</strong><br>
+                                    Programación orientada a objetos y concurrencia para aplicaciones empresariales.
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <!-- Mobile & Multiplatform -->
-                <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
-                    <div class="card shadow-sm p-4 bg-body-secondary">
-                        <h5 class="card-title mb-3"><i class="fas fa-mobile-alt me-2"></i>Mobile & Multiplataforma</h5>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Kotlin</span><span>92%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="92%"></div>
-                            </div>
+
+                <!-- Móvil & Multiplataforma -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card skill-card shadow-sm p-4 bg-body-secondary">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-mobile-alt fa-2x me-3 text-success"></i>
+                            <h5 class="mb-0">Móvil & Multiplataforma</h5>
                         </div>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Jetpack Compose</span><span>80%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="80%"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Android Studio</span><span>85%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="85%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="d-flex justify-content-between"><span>Firebase</span><span>78%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="78%"></div>
-                            </div>
-                        </div>
+                        <ul class="list-unstyled">
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="250">
+                                <i class="devicon-kotlin-plain colored me-2"></i>
+                                <div>
+                                    <strong>Kotlin Multiplatform</strong><br>
+                                    Compartición de lógica y diseños de módulos en Android e iOS.
+                                </div>
+                            </li>
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="300">
+                                <i class="devicon-android-plain colored me-2"></i>
+                                <div>
+                                    <strong>Android / Jetpack Compose</strong><br>
+                                    UI declarativa y arquitectura MVVM con LiveData y Flow.
+                                </div>
+                            </li>
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="350">
+                                <i class="fas fa-tools me-2"></i>
+                                <div>
+                                    <strong>Android Studio</strong><br>
+                                    Gestión de proyectos, debugging avanzado y profiling de apps móviles.
+                                </div>
+                            </li>
+                            <li class="d-flex" data-aos="fade-right" data-aos-delay="400">
+                                <i class="devicon-firebase-plain colored me-2"></i>
+                                <div>
+                                    <strong>Firebase</strong><br>
+                                    Auth, Firestore y Cloud Messaging para features offline y en tiempo real.
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <!-- Game Development -->
-                <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
-                    <div class="card shadow-sm p-4 bg-body-secondary">
-                        <h5 class="card-title mb-3"><i class="fas fa-gamepad me-2"></i>Desarrollo de Videojuegos</h5>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Unity</span><span>88%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="88%"></div>
-                            </div>
+
+                <!-- Desarrollo de Videojuegos -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card skill-card shadow-sm p-4 bg-body-secondary">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-gamepad fa-2x me-3 text-warning"></i>
+                            <h5 class="mb-0">Videojuegos</h5>
                         </div>
-                        <div>
-                            <div class="d-flex justify-content-between"><span>C#</span><span>85%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="85%"></div>
-                            </div>
-                        </div>
+                        <ul class="list-unstyled">
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="350">
+                                <i class="devicon-unity-original colored me-2"></i>
+                                <div>
+                                    <strong>Unity</strong><br>
+                                    Motor 2D/3D, física y scripting para prototipos en Game Jams.
+                                </div>
+                            </li>
+                            <li class="d-flex" data-aos="fade-right" data-aos-delay="400">
+                                <i class="devicon-csharp-plain colored me-2"></i>
+                                <div>
+                                    <strong>C#</strong><br>
+                                    Programación de game loops, IA simple y manejo de eventos.
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <!-- Others & Tools -->
-                <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
-                    <div class="card shadow-sm p-4 bg-body-secondary">
-                        <h5 class="card-title mb-3"><i class="fas fa-tools me-2"></i>Otros & Herramientas</h5>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between"><span>Arduino</span><span>70%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="70%"></div>
-                            </div>
+
+                <!-- Otros & Herramientas -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card skill-card shadow-sm p-4 bg-body-secondary">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-tools fa-2x me-3 text-accent"></i>
+                            <h5 class="mb-0">Otros & Herramientas</h5>
                         </div>
-                        <div>
-                            <div class="d-flex justify-content-between"><span>MATLAB</span><span>75%</span></div>
-                            <div class="skill-progress">
-                                <div class="progress-bar" style="width:0%" data-width="75%"></div>
-                            </div>
-                        </div>
+                        <ul class="list-unstyled">
+                            <li class="d-flex mb-2" data-aos="fade-right" data-aos-delay="450">
+                                <i class="devicon-arduino-plain colored me-2"></i>
+                                <div>
+                                    <strong>Arduino</strong><br>
+                                    Prototipado de hardware con sensores y actuadores básicos.
+                                </div>
+                            </li>
+                            <li class="d-flex" data-aos="fade-right" data-aos-delay="500">
+                                <i class="fas fa-calculator me-2"></i>
+                                <div>
+                                    <strong>MATLAB</strong><br>
+                                    Análisis numérico, simulaciones y procesamiento de señales.
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -436,6 +575,7 @@
     -->
 
     <!-- Projects Section with Filters -->
+    <!-- Projects Section (reemplazar sección completa) -->
     <section id="projects" class="py-5 bg-body" data-aos="fade-left">
         <div class="container">
             <h2 class="fw-semibold mb-4 text-center" data-i18n-key="projects_title">Proyectos Destacados</h2>
@@ -449,35 +589,28 @@
             </div>
 
             <div class="row g-4 justify-content-center" id="project-list">
+
                 <!-- BGApp Web -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="web" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="100">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
                         <img src="img/Bgapp.png" class="card-img-top" alt="BGApp Web">
-
                         <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
                             <div>
                                 <h5 class="card-title text-white">BGApp Web</h5>
-                                <!-- Badges de tecnologías -->
                                 <p class="mb-2">
                                     <span class="badge bg-primary">Spring Boot</span>
                                     <span class="badge bg-info">Bootstrap</span>
                                 </p>
-                                <!-- Descripción -->
                                 <p class="small text-white mb-3">
                                     Portal web de turismo en Bucaramanga con rutas, mapas interactivos y reservas.
                                 </p>
                             </div>
-
                             <div class="mt-3">
-                                <a href="#" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
-                                    data-bs-target="#modalBgWeb">
-                                    Detalles
-                                </a>
+                                <button class="btn btn-sm btn-light me-2"
+                                    data-micromodal-trigger="modal-bgweb">Detalles</button>
                                 <a href="http://52.191.2.203:8080/" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Demo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Demo</a>
                             </div>
                         </div>
                     </div>
@@ -488,36 +621,28 @@
                     data-aos="flip-left" data-aos-delay="200">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
                         <img src="img/Bgapp.png" class="card-img-top" alt="BGApp Móvil">
-
                         <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
                             <div>
                                 <h5 class="card-title text-white">BGApp Móvil</h5>
-                                <!-- Badges de tecnologías -->
                                 <p class="mb-2">
                                     <span class="badge bg-success">Kotlin</span>
                                     <span class="badge bg-secondary">MongoDB</span>
                                 </p>
-                                <!-- Descripción -->
                                 <p class="small text-white mb-3">
                                     App móvil offline/online con guías turísticas, geolocalización y notificaciones.
                                 </p>
                             </div>
-
                             <div class="mt-3">
-                                <a href="#" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
-                                    data-bs-target="#modalBgMobile">
-                                    Detalles
-                                </a>
+                                <button class="btn btn-sm btn-light me-2"
+                                    data-micromodal-trigger="modal-bgmobile">Detalles</button>
                                 <a href="https://demo-bgapp-mobile.live" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Demo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Demo</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card Game: HuronTroll -->
+                <!-- HuronTroll -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="game" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="350">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
@@ -525,37 +650,27 @@
                         <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
                             <div>
                                 <h5 class="card-title text-white">HuronTroll</h5>
-                                <!-- Badges de tecnologías -->
                                 <p class="mb-2">
                                     <span class="badge bg-warning">Unity</span>
                                     <span class="badge bg-secondary">C#</span>
                                 </p>
-                                <!-- Descripción -->
                                 <p class="small text-white mb-3">
-                                    Aventura de plataformas 2D pixel art creada en 48h para Global Game Jam 2024 (tema
-                                    “Make Me Laugh”).
+                                    Aventura de plataformas 2D pixel art creada en 48h para Global Game Jam 2024.
                                 </p>
                             </div>
                             <div class="mt-3 d-flex justify-content-center gap-2">
-                                <a href="#" class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#modalHuronTroll">
-                                    Detalles
-                                </a>
+                                <button class="btn btn-sm btn-light"
+                                    data-micromodal-trigger="modal-hurontroll">Detalles</button>
                                 <a href="https://github.com/bleon133/HuronTroll" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Repo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Repo</a>
                                 <a href="releases/HuronTroll_Win.zip" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Download
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Download</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
-                <!-- Card Web: Meditraz -->
+                <!-- Meditraz -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="web" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="250">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
@@ -563,58 +678,52 @@
                         <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
                             <div>
                                 <h5 class="card-title text-white">Meditraz</h5>
-                                <!-- Badges de tecnologías -->
                                 <p class="mb-2">
                                     <span class="badge bg-primary">Angular</span>
                                     <span class="badge bg-info">ASP.NET Core</span>
                                     <span class="badge bg-success">SQL Server</span>
                                 </p>
-                                <!-- Descripción -->
                                 <p class="small text-white mb-3">
                                     Prototipo académico para trazabilidad de medicamentos: inventario, escaneo de
                                     códigos y alertas de caducidad.
                                 </p>
                             </div>
                             <div class="mt-3 d-flex justify-content-center gap-2">
-                                <a href="#" class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#modalMeditraz">
-                                    Detalles
-                                </a>
+                                <button class="btn btn-sm btn-light"
+                                    data-micromodal-trigger="modal-meditraz">Detalles</button>
                                 <a href="https://github.com/bleon133/Meditraz" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Repo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Repo</a>
                                 <a href="https://youtu.be/e8V4vXuJ9jc" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Demo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Demo</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
-                <!-- Card Mobile: Chat App -->
+                <!-- Chat App -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="mobile" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="500">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
                         <img src="/assets/chat-app.png" class="card-img-top" alt="Chat App">
                         <div class="card-body text-center bg-body-secondary">
                             <h5 class="card-title text-white">Chat App</h5>
-                            <p class="mb-2"><span class="badge bg-success">Flutter</span> <span
-                                    class="badge bg-secondary">Firebase</span></p>
+                            <p class="mb-2">
+                                <span class="badge bg-success">Flutter</span>
+                                <span class="badge bg-secondary">Firebase</span>
+                            </p>
                         </div>
                         <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center px-3"
                             style="background: rgba(0,0,0,0.7); opacity: 0; transition: opacity .3s;">
                             <p class="text-white mb-3">Mensajería en tiempo real y notificaciones push.</p>
-                            <a href="#" class="btn btn-sm btn-light me-2">Detalles</a>
+                            <button class="btn btn-sm btn-light me-2"
+                                data-micromodal-trigger="modal-chatapp">Detalles</button>
                             <a href="https://demo-chatapp.live" target="_blank"
                                 class="btn btn-sm btn-outline-light">Demo</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card Game: Cthulhu Jamboree (Game Jam 2025) -->
+                <!-- Cthulhu Jamboree -->
                 <div class="col-md-6 col-lg-4 project-item tilt" data-category="game" data-tilt data-tilt-max="15"
                     data-aos="flip-left" data-aos-delay="400">
                     <div class="card project-card shadow-sm position-relative overflow-hidden">
@@ -622,38 +731,30 @@
                         <div class="card-body d-flex flex-column justify-content-between bg-body-secondary text-center">
                             <div>
                                 <h5 class="card-title text-white">Cthulhu Jamboree</h5>
-                                <!-- Badges de tecnologías -->
                                 <p class="mb-2">
                                     <span class="badge bg-warning">Unity</span>
                                     <span class="badge bg-info">HTML5</span>
                                 </p>
-                                <!-- Descripción breve -->
                                 <p class="small text-white mb-3">
                                     Batalla local 1v1 de burbujas: revienta la de tu oponente antes de caer al vacío.
                                 </p>
                             </div>
                             <div class="mt-3 d-flex justify-content-center gap-2">
-                                <a href="#" class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#modalCthulhuJamboree">
-                                    Detalles
-                                </a>
+                                <button class="btn btn-sm btn-light"
+                                    data-micromodal-trigger="modal-cthulhujamboree">Detalles</button>
                                 <a href="https://github.com/bleon133/GameJam2025" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Repo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Repo</a>
                                 <a href="https://crimpatches.itch.io/chutulu-jamboree" target="_blank"
-                                    class="btn btn-sm btn-outline-light">
-                                    Demo
-                                </a>
+                                    class="btn btn-sm btn-outline-light">Demo</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
             </div>
         </div>
     </section>
+
 
 
     <!-- Certifications Section -->
@@ -757,12 +858,153 @@
         </div>
     </footer>
 
+    <div class="modal micromodal-slide" id="modal-bgweb" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-bgweb-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-bgweb-title">
+                        BGApp Web
+                    </h2>
+                    <button class="modal__close" aria-label="Cerrar modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="modal-bgweb-content">
+                    <p>
+                        Portal web de turismo en Bucaramanga con rutas, mapas interactivos, reservas y dashboard
+                        para administración de usuarios y reportes en tiempo real.
+                    </p>
+                    <ul>
+                        <li>🔹 Tecnologías: Spring Boot, Bootstrap 5, MongoDB.</li>
+                        <li>🔹 Funcionalidades: filtros por ubicación, sistema de reservas, mapa interactivo.</li>
+                        <li>🔹 Animaciones con AOS y GSAP para transiciones suaves.</li>
+                    </ul>
+                </main>
+                <footer class="modal__footer">
+                    <button class="btn btn-primary" data-micromodal-close aria-label="Cerrar este modal">Cerrar</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- BGApp Móvil -->
+    <div class="modal micromodal-slide" id="modal-bgmobile" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-bgmobile-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-bgmobile-title">BGApp Móvil</h2>
+                    <button class="modal__close" aria-label="Cerrar modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content">
+                    <p>App móvil offline/online con guías turísticas, geolocalización y notificaciones.</p>
+                    <ul>
+                        <li>🔹 Tecnologías: Kotlin Multiplatform, MongoDB.</li>
+                        <li>🔹 Funcionalidades: mapas offline, sincronización de datos, notificaciones push.</li>
+                    </ul>
+                </main>
+                <footer class="modal__footer">
+                    <button class="btn btn-primary" data-micromodal-close>Cerrar</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- HuronTroll -->
+    <div class="modal micromodal-slide" id="modal-hurontroll" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-hurontroll-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-hurontroll-title">HuronTroll</h2>
+                    <button class="modal__close" aria-label="Cerrar modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content">
+                    <p>Aventura de plataformas 2D pixel art creada en 48h para Global Game Jam 2024 (“Make Me Laugh”).
+                    </p>
+                    <ul>
+                        <li>🔹 Unity + C#</li>
+                        <li>🔹 Mecánica: saltos, enemigos, recolección de ítems.</li>
+                    </ul>
+                </main>
+                <footer class="modal__footer">
+                    <button class="btn btn-primary" data-micromodal-close>Cerrar</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meditraz -->
+    <div class="modal micromodal-slide" id="modal-meditraz" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-meditraz-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-meditraz-title">Meditraz</h2>
+                    <button class="modal__close" aria-label="Cerrar modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content">
+                    <p>Prototipo académico para trazabilidad de medicamentos: inventario, escaneo de códigos y alertas.
+                    </p>
+                    <ul>
+                        <li>🔹 Angular + ASP.NET Core + SQL Server</li>
+                        <li>🔹 Funciones: gestión de stock, escaneo QR, notificaciones de caducidad.</li>
+                    </ul>
+                </main>
+                <footer class="modal__footer">
+                    <button class="btn btn-primary" data-micromodal-close>Cerrar</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat App -->
+    <div class="modal micromodal-slide" id="modal-chatapp" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-chatapp-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-chatapp-title">Chat App</h2>
+                    <button class="modal__close" aria-label="Cerrar modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content">
+                    <p>Mensajería en tiempo real con Firebase: chat grupal, notificaciones push y multimedia.</p>
+                    <ul>
+                        <li>🔹 Flutter + Firebase</li>
+                        <li>🔹 Características: chats 1-1 y grupales, envío de imágenes, alertas push.</li>
+                    </ul>
+                </main>
+                <footer class="modal__footer">
+                    <button class="btn btn-primary" data-micromodal-close>Cerrar</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cthulhu Jamboree -->
+    <div class="modal micromodal-slide" id="modal-cthulhujamboree" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-cthulhujamboree-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-cthulhujamboree-title">Cthulhu Jamboree</h2>
+                    <button class="modal__close" aria-label="Cerrar modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content">
+                    <p>Batalla local 1v1 de burbujas: revienta la de tu oponente antes de caer al vacío.</p>
+                    <ul>
+                        <li>🔹 Unity + HTML5</li>
+                        <li>🔹 Jugabilidad: derriba burbujas, power-ups y arenas destructibles.</li>
+                    </ul>
+                </main>
+                <footer class="modal__footer">
+                    <button class="btn btn-primary" data-micromodal-close>Cerrar</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Resto del documento unchanged -->
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     <script>
         document.getElementById('footerYear').textContent = new Date().getFullYear();
 
@@ -855,4 +1097,17 @@
             alertEl.classList.remove('d-none');
             this.reset();
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            MicroModal.init({
+                openTrigger: 'data-micromodal-trigger',
+                closeTrigger: 'data-micromodal-close',
+                disableScroll: true,
+                awaitOpenAnimation: true,   // sigue animando al abrir
+                awaitCloseAnimation: false   // cierra inmediatamente sin esperar animación
+            });
+        });
     </script>
+</body>
+
+</html>
